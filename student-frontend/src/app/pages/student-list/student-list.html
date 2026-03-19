@@ -1,0 +1,45 @@
+<div class="card">
+  <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+    <h2 style="margin: 0">Student List</h2>
+    <button type="button" (click)="refresh()">Refresh</button>
+  </div>
+
+  @if (loading()) {
+    <p class="hint" style="margin-top: 10px">Loading...</p>
+  } @else {
+    @if (students().length === 0) {
+      <p class="hint" style="margin-top: 10px">No students yet.</p>
+    } @else {
+      <div style="overflow: auto; margin-top: 10px">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>DOB</th>
+              <th>Gender</th>
+              <th>Course</th>
+              <th>Registered</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (s of students(); track s.id) {
+              <tr>
+                <td>{{ s.studentName }}</td>
+                <td>{{ s.email }}</td>
+                <td>{{ s.dateOfBirth | date: 'yyyy-MM-dd' }}</td>
+                <td>{{ s.gender }}</td>
+                <td>{{ s.course }}</td>
+                <td>{{ s.registrationDate | date: 'yyyy-MM-dd' }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  }
+
+  <div class="actions">
+    <a routerLink="/register" class="hint">Back to registration</a>
+  </div>
+</div>

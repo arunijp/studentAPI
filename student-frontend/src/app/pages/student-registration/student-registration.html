@@ -1,0 +1,65 @@
+<div class="card">
+  @if (successMessage()) {
+    <div class="success">{{ successMessage() }}</div>
+  }
+
+  <h2 style="margin: 0 0 12px 0">Register Student</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="row">
+      <div>
+        <label for="studentName">Student Name</label>
+        <input id="studentName" type="text" formControlName="studentName" />
+        @if (form.controls.studentName.touched && form.controls.studentName.invalid) {
+          <div class="error">Student Name is required.</div>
+        }
+      </div>
+
+      <div>
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" />
+        @if (form.controls.email.touched && form.controls.email.invalid) {
+          <div class="error">Enter a valid email.</div>
+        }
+      </div>
+
+      <div>
+        <label for="dateOfBirth">Date of Birth</label>
+        <input id="dateOfBirth" type="date" formControlName="dateOfBirth" />
+        @if (form.controls.dateOfBirth.touched && form.controls.dateOfBirth.invalid) {
+          <div class="error">Date of Birth is required.</div>
+        }
+      </div>
+
+      <div>
+        <label for="gender">Gender</label>
+        <select id="gender" formControlName="gender">
+          @for (g of genders; track g) {
+            <option [value]="g">{{ g }}</option>
+          }
+        </select>
+      </div>
+
+      <div>
+        <label for="course">Course</label>
+        <input id="course" type="text" formControlName="course" />
+        @if (form.controls.course.touched && form.controls.course.invalid) {
+          <div class="error">Course is required.</div>
+        }
+      </div>
+
+      <div>
+        <label for="registrationDate">Registration Date</label>
+        <input id="registrationDate" type="date" formControlName="registrationDate" />
+        <div class="hint">Auto-filled with current date</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="submit" [disabled]="saving()">
+        @if (saving()) { Saving... } @else { Save }
+      </button>
+      <a routerLink="/students" class="hint">View student list</a>
+    </div>
+  </form>
+</div>
